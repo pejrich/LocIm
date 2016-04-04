@@ -1,5 +1,30 @@
 # LocIm
 
+# Users
+  * GET /users/:id        
+  * GET /users/:id/follow
+  * GET /users/:id/unfollow
+
+# Location
+  * GET /location/
+    - latitude, type: float, required: true
+    - longitude, type: float, required: true
+    - radius, type: integer, required: true
+    - category, type: string, required: false
+
+# Feed
+  * GET /feed(/:page_number)
+
+# Posts
+  * GET /posts/:id
+  * POST /posts/
+    - image, type: file, required: true
+    - latitude, type: float, required: true
+    - longitude, type: float, required: true
+    - category, type: string, required: true
+    - reaction, type: boolean, required: true
+
+
 To start your Phoenix app:
 
   * Install dependencies with `mix deps.get`
