@@ -25,6 +25,8 @@ defmodule LocIm.Router do
       get "/follow", Api.UserController, :follow
       get "/unfollow", Api.UserController, :unfollow
     end
+
+    get "/location", Api.LocationController, :index
   end
 
   # Other scopes may use custom stacks.
