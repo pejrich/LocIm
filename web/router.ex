@@ -21,7 +21,7 @@ defmodule LocIm.Router do
 
   scope "/api", LocIm do
     pipe_through :api
-    get "/", Api.PageController, :index 
+    resources "/users", Api.UserController
   end
 
   # Other scopes may use custom stacks.
