@@ -21,7 +21,7 @@ defmodule LocIm.Router do
 
   scope "/api", LocIm do
     pipe_through :api
-    resources "/users", Api.UserController do
+    resources "/users", Api.UserController, only: [:show] do
       get "/follow", Api.UserController, :follow
       get "/unfollow", Api.UserController, :unfollow
     end
