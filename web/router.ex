@@ -23,11 +23,12 @@ defmodule LocIm.Router do
     pipe_through :api
     resources "/posts", Api.PostController, only: [:show, :create]
     resources "/users", Api.UserController, only: [:show] do
-      get "/follow", Api.UserController, :follow
-      get "/unfollow", Api.UserController, :unfollow
+      post "/follow", Api.UserController, :follow
+      post "/unfollow", Api.UserController, :unfollow
     end
 
     get "/location", Api.LocationController, :index
+    get "/feed", Api.FeedController, :index
   end
 
   # Other scopes may use custom stacks.
