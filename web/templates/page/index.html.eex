@@ -305,17 +305,6 @@
               </td>
             </tr>
             <tr>
-              <td><strong>radius</strong><br>
-              </td>
-              <td>true</td>
-              <td>integer</td>
-              <td>
-                <p>
-                  Radius, in meters, of current map view
-                </p>
-              </td>
-            </tr>
-            <tr>
               <td><strong>category</strong><br>
               </td>
               <td>true</td>
