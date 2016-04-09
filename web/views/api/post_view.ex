@@ -14,13 +14,6 @@ defmodule LocIm.Api.PostView do
     }
   end
 
-  def render("nopost.json", %{post_id: post_id}) do
-    %{
-      status: 404,
-      message: "Post not found with id: #{post_id}"
-    }
-  end
-
   def render("create.json", _) do
     %{
       success: true,
