@@ -282,6 +282,17 @@
               </td>
             </tr>
             <tr>
+              <td><strong>image</strong><br>
+              </td>
+              <td>true</td>
+              <td>file</td>
+              <td>
+                <p>
+                  Image to be uploaded. Must be either png, jpg, jped or gif
+                </p>
+              </td>
+            </tr>
+            <tr>
               <td><strong>longitude</strong><br>
               </td>
               <td>true</td>
@@ -292,7 +303,6 @@
                 </p>
               </td>
             </tr>
-
             <tr>
               <td><strong>latitude</strong><br>
               </td>
