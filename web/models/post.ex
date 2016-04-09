@@ -11,12 +11,14 @@ defmodule LocIm.Post do
     field :image, :string
     field :category, :string
     field :reaction, :boolean
+    field :original_filename, :string
 
     timestamps
   end
 
   @required_fields ~w(status location image category reaction user_id)
-  @optional_fields ~w()
+  @optional_fields ~w(original_filename)
+  @category_options ["food", "sight", "accommodation", "place of interest"]
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -27,6 +29,10 @@ defmodule LocIm.Post do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> unique_constraint(:image)
+    |> not_empty(:status)
+    |> validate_inclusion(:category, @category_options, message: "is incorrect, please use " <> Enum.join(@category_options, "/"))
+    |> foreign_key_constraint(:user_id)
   end
 
   def within(latitude, longitude, radius) do
@@ -41,5 +47,30 @@ defmodule LocIm.Post do
 
   def latitude(post) do
     elem(post.location.coordinates, 1)
+  end
+
+  def from_post_params(%{"category" => category, "status" => status, "image" => %Plug.Upload{content_type: cont_type, filename: filename, path: filepath},
+        "latitude" => latitude, "longitude" => longitude, "reaction" => reaction, "auth_token" => auth_token}) do
+    location = %Geo.Point{coordinates: {longitude, latitude}}
+    image_path = LocIm.PostUploadServer.upload(filepath, filename)
+    params = %{user_id: auth_token, reaction: reaction, category: category,
+            location: location, image: image_path, status: status, original_filename: filename}
+    changeset = Post.changeset(%Post{}, params)
+  end
+
+  def from_post_params(_) do
+    nil
+  end
+
+  defp not_empty(changeset, key) do
+    val = get_field(changeset, key)
+    changeset = case val do
+      "" -> 
+        add_error(changeset, key, "#{key} cannot be empty")
+      nil -> 
+        add_error(changeset, key, "#{key} cannot be empty")
+      _ -> changeset
+    end
+    changeset
   end
 end

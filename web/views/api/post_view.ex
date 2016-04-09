@@ -5,12 +5,13 @@ defmodule LocIm.Api.PostView do
     %{
       id: post.id,
       user: Phoenix.View.render_one(post.user, LocIm.Api.UserView, "user.json"),
-      image_url: "http://www.deluxegrouptours.vn/wp-content/uploads/2015/03/Notre-Dame-Cathedral-ho-chi-minh-city-tour-half-day4.jpg",
+      image_url: post.image,
       longitude: LocIm.Post.longitude(post),
       latitude: LocIm.Post.latitude(post),
       created_at: 1459762009,
-      category: "sight",
-      reaction: true
+      category: post.category,
+      reaction: post.reaction,
+      status: post.status
     }
   end
 
