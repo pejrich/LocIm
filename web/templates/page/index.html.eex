@@ -325,6 +325,17 @@
                 </p>
               </td>
             </tr>
+            <tr>
+              <td><strong>reaction</strong><br>
+              </td>
+              <td>true</td>
+              <td>boolean</td>
+              <td>
+                <p>
+                  Boolean value to represent if the user would recommend visiting the current location
+                </p>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
