@@ -12,7 +12,7 @@ config :logger, level: :warn
 # Configure your database
 config :loc_im, LocIm.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
+  username: "perich",
   password: "postgres",
   database: "loc_im_test",
   hostname: "localhost",

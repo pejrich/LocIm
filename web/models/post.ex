@@ -8,11 +8,14 @@ defmodule LocIm.Post do
     field :status, :string
     belongs_to :user, LocIm.User
     field :location, Geo.Point
+    field :image, :string
+    field :category, :string
+    field :reaction, :boolean
 
     timestamps
   end
 
-  @required_fields ~w(status location)
+  @required_fields ~w(status location image category reaction user_id)
   @optional_fields ~w()
 
   @doc """

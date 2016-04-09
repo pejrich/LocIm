@@ -11,6 +11,7 @@ defmodule LocIm do
       supervisor(LocIm.Endpoint, []),
       # Start the Ecto repository
       supervisor(LocIm.Repo, []),
+      worker(LocIm.PostUploadServer, []),
       # Here you could define other workers and supervisors as children
       # worker(LocIm.Worker, [arg1, arg2, arg3]),
     ]

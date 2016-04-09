@@ -1,12 +1,14 @@
 defmodule LocIm.Api.UserView do
   use LocIm.Web, :view
+  alias LocIm.User
 
   def render("user.json", %{user: user}) do
     %{
-      here: "from user view",
-      name: "Peter",
-      id: 1,
-      profile_picture_url: "https://www.drupal.org/files/profile_default.png"
+      full_name: user.full_name,
+      username: user.username,
+      id: user.id,
+      profile_picture_url: User.avatar_url(user),
+      cover_picture_url: User.cover_url(user),
     }
   end
 
