@@ -35,8 +35,9 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :loc_im, LocIm.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
+  username: "perich",
   password: "postgres",
   database: "loc_im_dev",
   hostname: "localhost",
-  pool_size: 10
+  pool_size: 10,
+  extensions: [{Geo.PostGIS.Extension, library: Geo}]
