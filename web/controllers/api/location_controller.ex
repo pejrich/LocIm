@@ -10,20 +10,10 @@ defmodule LocIm.Api.LocationController do
         json(conn, %{mess: "with cat #{radius}"})
       _ ->   
         posts = LocIm.Post.within(longitude, latitude, radius)
-        # |> 
         |> LocIm.Repo.all
         conn = assign(conn, :posts, posts)
         render conn, "index.json"
     end
-
-    # case params do
-    #    ->
-    #     # lat long search
-    #   %{"latitude" => latitude, "longitude" => longitude} ->
-    # end
-    # IO.puts "\n\n\n #{inspect params} \n\n\n"
-    # posts = LocIm.Post.within()
-    # render conn, "index.json"
   end
 
   def index(conn, _) do

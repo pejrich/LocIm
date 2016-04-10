@@ -37,7 +37,17 @@ defmodule LocIm.Post do
 
   def within(longitude, latitude, radius) do
     point2 = %Geo.Point{coordinates: {longitude, latitude}}
-    query = from post in Post, where: st_distance(post.location, ^point2)  < ^radius,  select: post
+    query = from post in Post,
+                  where: st_distance(post.location, ^point2)  < ^radius,
+                  select: post,
+                  preload: [:user]
+  end
+
+  def feed_for(user) do
+    query = from post in Post,
+                  where: post.user_id == ^user.id,
+                  order_by: [desc: post.inserted_at],
+                  preload: [:user]
   end
 
   def longitude(post) do

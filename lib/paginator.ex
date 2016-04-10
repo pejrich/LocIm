@@ -1,0 +1,95 @@
+defmodule Pager do
+
+  import Ecto.Query
+  
+  defstruct [:results, :page_number, :page_size, :total_pages]
+  
+  @per_page 10
+  
+  def paginate(query, page_number) do
+    pager = %Pager{}
+    |> Map.put(:total_count, total_count(query))
+    |> Map.put(:page_number, page_number)
+    |> Map.put(:page_size, @per_page)
+    pager = Map.put(pager, :total_pages, total_pages(pager))
+    |> Map.put(:results, get_results(query, pager)) 
+  end
+
+  defp total_count(query) do
+    count = query
+    |> exclude(:order_by)
+    |> exclude(:preload)
+    |> exclude(:select)
+    |> select([e], count(e.id))
+    |> LocIm.Repo.one
+  end
+
+  defp total_pages(pager) do
+    count = pager.total_count / @per_page
+    case trunc(count) == count do
+      true -> count
+      false -> trunc(count) + 1
+    end 
+  end
+
+  defp get_results(query, pager) do
+    pn = pager.page_number
+    skip = (pn - 1) * @per_page
+    (from q in query, offset: ^skip, limit: @per_page)
+    |> LocIm.Repo.all
+  end
+end
+
+# defmodule Paginator do
+#   defstruct [:entries, :page_number, :page_size, :total_pages]
+
+#   def new(query, params) do
+#     page_number = params |> Dict.get("page", 1) |> to_int
+#     page_size = params |> Dict.get("page_size", 10) |> to_int
+#     %Paginator{
+#       entries: entries(query, page_number, page_size),
+#       page_number: page_number,
+#       page_size: page_size,
+#       total_pages: total_pages(query, page_size)
+#     }
+#   end
+
+#   defp ceiling(float) do
+#     t = trunc(float)
+#     case float - t do
+#       neg when neg < 0 ->
+#         t
+#       pos when pos > 0 ->
+#         t + 1
+#       _ -> t
+#     end
+#   end
+
+#   defp entries(query, page_number, page_size) do
+#     offset = page_size * (page_number - 1)
+
+#     query
+#     |> limit([_], ^page_size)
+#     |> offset([_], ^offset)
+#     |> Repo.all
+#   end
+
+#   defp to_int(i) when is_integer(i), do: i
+#   defp to_int(s) when is_binary(s) do
+#     case Integer.parse(s) do
+#       {i, _} -> i
+#       :error -> :error
+#     end
+#   end
+
+#   defp total_pages(query, page_size) do
+#     count = query
+#     |> exclude(:order_by)
+#     |> exclude(:preload)
+#     |> exclude(:select)
+#     |> select([e], count(e.id))
+#     |> Repo.one
+
+#     ceiling(count / page_size)
+#   end
+# end
