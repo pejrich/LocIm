@@ -1,5 +1,6 @@
 defmodule LocIm.User do
   use LocIm.Web, :model
+  alias LocIm.User
 
   schema "users" do
     field :username, :string
@@ -7,12 +8,13 @@ defmodule LocIm.User do
     field :avatar, :string
     field :cover, :string
     field :location, Geo.Point
+    field :auth_token, :string
 
     timestamps
   end
 
   @required_fields ~w(username full_name)
-  @optional_fields ~w(avatar cover)
+  @optional_fields ~w(avatar cover auth_token)
   @default_avatar_url "https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg"
   @default_cover_urls ["https://unsplash.com/photos/W2KEyYAAvU4", "https://unsplash.com/photos/SK3uHKx5nCU",
                       "https://unsplash.com/photos/4LYbjO_hDDw", "https://unsplash.com/photos/9j1hXX8jO1I"]
@@ -44,6 +46,27 @@ defmodule LocIm.User do
       nil -> Enum.random(@default_cover_urls)
       "" -> Enum.random(@default_cover_urls)
       _ -> user.cover
+    end
+  end
+
+  # Auth Token Methods
+
+  def gen_auth_token(user) do
+    changeset = User.changeset(user, %{auth_token: new_token})
+    LocIm.Repo.update(changeset)
+  end
+
+  def new_token do
+    :crypto.hash(:sha256, :erlang.now |> elem(2) |> Integer.to_string)
+    |> Base.encode16
+    |> String.split_at(5)
+    |> elem(0)
+  end
+
+  def auth_token_to_user_id(auth_token) do
+    case user = LocIm.Repo.get_by(LocIm.User, auth_token: auth_token) do
+      nil -> nil
+      user -> user.id
     end
   end
 end

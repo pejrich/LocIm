@@ -30,15 +30,14 @@ defmodule LocIm.Post do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> unique_constraint(:image)
-    |> not_empty(:status)
+    |> validate_not_empty(:status)
     |> validate_inclusion(:category, @category_options, message: "is incorrect, please use " <> Enum.join(@category_options, "/"))
     |> foreign_key_constraint(:user_id)
   end
 
-  def within(latitude, longitude, radius) do
+  def within(longitude, latitude, radius) do
     point2 = %Geo.Point{coordinates: {longitude, latitude}}
     query = from post in Post, where: st_distance(post.location, ^point2)  < ^radius,  select: post
-    Repo.all(query)
   end
 
   def longitude(post) do
@@ -49,20 +48,21 @@ defmodule LocIm.Post do
     elem(post.location.coordinates, 1)
   end
 
-  def from_post_params(%{"category" => category, "status" => status, "image" => %Plug.Upload{content_type: cont_type, filename: filename, path: filepath},
-        "latitude" => latitude, "longitude" => longitude, "reaction" => reaction, "auth_token" => auth_token}) do
+  def format_post_params(%{auth_token: auth_token, latitude: latitude, longitude: longitude,
+        image: %Plug.Upload{content_type: cont_type, filename: filename, path: filepath}} = params) do
     location = %Geo.Point{coordinates: {longitude, latitude}}
     image_path = LocIm.PostUploadServer.upload(filepath, filename)
-    params = %{user_id: auth_token, reaction: reaction, category: category,
-            location: location, image: image_path, status: status, original_filename: filename}
-    changeset = Post.changeset(%Post{}, params)
+    user_id = LocIm.User.auth_token_to_user_id(auth_token)
+    params = params
+    |> Map.delete(:longitude)
+    |> Map.delete(:latitude)
+    |> Map.put(:user_id, user_id)
+    |> Map.put(:image, image_path)
+    |> Map.put(:location, location)
+    |> Map.put(:original_filename, filename)
   end
 
-  def from_post_params(_) do
-    nil
-  end
-
-  defp not_empty(changeset, key) do
+  defp validate_not_empty(changeset, key) do
     val = get_field(changeset, key)
     changeset = case val do
       "" -> 

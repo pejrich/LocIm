@@ -1,7 +1,33 @@
 defmodule LocIm.Api.LocationController do
   use LocIm.Web, :controller
 
-  def index(conn, params) do
-    render conn, "index.json"
+  @default_radius 500
+
+  def index(conn, %{"latitude" => latitude, "longitude" => longitude} = params) do
+    radius = String.to_integer("#{Map.get(params, "radius") || @default_radius}")
+    case params do
+      %{"categories" => categories} ->
+        json(conn, %{mess: "with cat #{radius}"})
+      _ ->   
+        posts = LocIm.Post.within(longitude, latitude, radius)
+        # |> 
+        |> LocIm.Repo.all
+        conn = assign(conn, :posts, posts)
+        render conn, "index.json"
+    end
+
+    # case params do
+    #    ->
+    #     # lat long search
+    #   %{"latitude" => latitude, "longitude" => longitude} ->
+    # end
+    # IO.puts "\n\n\n #{inspect params} \n\n\n"
+    # posts = LocIm.Post.within()
+    # render conn, "index.json"
+  end
+
+  def index(conn, _) do
+    put_status(conn, 422)
+    |> json(%{message: "Please provide a valid longitude and latitude"})
   end
 end
