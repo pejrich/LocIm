@@ -7,15 +7,16 @@ defmodule LocIm.Api.LocationController do
     latitude = String.to_float("#{latitude}")
     longitude = String.to_float("#{longitude}")
     radius = String.to_integer("#{Map.get(params, "radius") || @default_radius}")
+    query = LocIm.Post.within(longitude, latitude, radius)
     case params do
-      %{"categories" => categories} ->
-        json(conn, %{mess: "with cat #{radius}"})
-      _ ->   
-        posts = LocIm.Post.within(longitude, latitude, radius)
-        |> LocIm.Repo.all
-        conn = assign(conn, :posts, posts)
-        render conn, "index.json"
+      %{"category" => category} ->
+        query = from p in query, where: p.category == ^category
+      _ -> :nil
     end
+    posts = LocIm.Repo.all(query)
+    conn
+    |> assign(:posts, posts)
+    |> render "index.json"
   end
 
   def index(conn, _) do

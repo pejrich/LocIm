@@ -20,6 +20,8 @@ defmodule LocIm.Post do
   @optional_fields ~w(original_filename)
   @category_options ["food", "sight", "accommodation", "place of interest"]
 
+  def category_options, do: @category_options
+
   @doc """
   Creates a changeset based on the `model` and `params`.
 
