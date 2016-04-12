@@ -31,7 +31,7 @@ defmodule LocIm.Api.PostController do
           {:error, %{errors: errors}} ->
             errors_map = Enum.reduce(errors, %{}, fn({key, val}, acc) -> Map.put(acc, key, val) end)
             put_status(conn, 422)
-            |> json %{status: "Some parameters are missing or incorrect", errors: errors_map}
+            |> json(%{status: "Some parameters are missing or incorrect", errors: errors_map})
         end
         conn
       missing_params ->

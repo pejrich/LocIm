@@ -16,7 +16,7 @@ defmodule LocIm.Api.LocationController do
     posts = LocIm.Repo.all(query)
     conn
     |> assign(:posts, posts)
-    |> render "index.json"
+    |> render("index.json")
   end
 
   def index(conn, _) do
