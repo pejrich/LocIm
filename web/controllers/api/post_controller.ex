@@ -37,15 +37,6 @@ defmodule LocIm.Api.PostController do
       missing_params ->
         put_status(conn, 422)
         |> json(%{missing_params: missing_params})
-
     end
   end
-    # post = Post.from_post_params(post_params)
-    # case Repo.insert(post) do
-    #   
-    #   
-    #     
-    #     
-    #   _ -> json conn, %{status: "Some parameters are missing or incorrect"}
-    # end
 end

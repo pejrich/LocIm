@@ -19,7 +19,7 @@ defmodule LocIm.Mixfile do
   def application do
     [mod: {LocIm, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :postgrex, :comeonin]]
   end
 
   # Specifies which paths to compile per environment.
@@ -38,6 +38,7 @@ defmodule LocIm.Mixfile do
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
      {:exrm, "~> 0.14.2" },
+     {:comeonin, "~> 2.0"},
      {:geo, "~> 1.0"}]
   end
 

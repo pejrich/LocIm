@@ -13,22 +13,31 @@ defmodule LocIm.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug LocIm.Auth, repo: LocIm.Repo
+  end
+
   scope "/", LocIm do
     pipe_through :browser # Use the default browser stack
-
     get "/", PageController, :index
   end
 
   scope "/api", LocIm do
     pipe_through :api
-    resources "/posts", Api.PostController, only: [:show, :create]
-    resources "/users", Api.UserController, only: [:show] do
-      post "/follow", Api.UserController, :follow
-      post "/unfollow", Api.UserController, :unfollow
-    end
 
-    get "/location", Api.LocationController, :index
-    get "/feed", Api.FeedController, :index
+    scope "/" do
+      pipe_through :auth
+
+      get "/location", Api.LocationController, :index
+      get "/feed", Api.FeedController, :index
+      resources "/posts", Api.PostController, only: [:show, :create]  
+      resources "/users", Api.UserController, only: [:show] do
+        post "/follow", Api.UserController, :follow
+        post "/unfollow", Api.UserController, :unfollow
+      end
+    end  
+
+
   end
 
   # Other scopes may use custom stacks.
