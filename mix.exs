@@ -19,7 +19,7 @@ defmodule LocIm.Mixfile do
   def application do
     [mod: {LocIm, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :comeonin]]
+                    :phoenix_ecto, :postgrex, :comeonin, :httpotion, :httpoison]]
   end
 
   # Specifies which paths to compile per environment.
@@ -37,9 +37,11 @@ defmodule LocIm.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
-     {:exrm, "~> 0.14.2" },
+     {:exrm, "~> 1.0.0-rc7"},
      {:comeonin, "~> 2.0"},
-     {:geo, "~> 1.0"}]
+     {:geo, "~> 1.0"},
+     {:httpotion, "~> 2.2.0"},
+     {:httpoison, "~> 0.8.0"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
