@@ -37,7 +37,7 @@ defmodule LocIm.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
-     {:exrm, "~> 0.14.2" },
+     {:exrm, "~> 1.0.0-rc7"},
      {:geo, "~> 1.0"}]
   end
 
