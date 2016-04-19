@@ -36,12 +36,14 @@ defmodule LocIm.Mixfile do
      {:phoenix_html, "~> 2.3"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
+     {:logger_file_backend, "0.0.4"},
      {:cowboy, "~> 1.0"},
      {:exrm, "~> 1.0.0-rc7"},
      {:comeonin, "~> 2.0"},
      {:geo, "~> 1.0"},
      {:httpotion, "~> 2.2.0"},
      {:httpoison, "~> 0.8.0"}]
+     {:geo, "~> 1.0"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
