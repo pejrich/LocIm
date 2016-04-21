@@ -37,10 +37,6 @@ config :logger, :info,
 config :logger, :error,
   path: "logg/error.log",
   level: :error
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 
 # Set a higher stacktrace during development.
 # Do not configure such in production as keeping
