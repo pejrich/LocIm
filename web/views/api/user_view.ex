@@ -31,6 +31,12 @@ defmodule LocIm.Api.UserView do
     }
   end
 
+  def render("show_with_token.json", %{user: user}) do
+    # This should only be rendered to the user because it includes the auth_token
+    json = Phoenix.View.render_one(user, LocIm.Api.UserView, "user.json")
+    |> Dict.put(:auth_token, user.auth_token)
+  end
+
   def render("follow.json", %{user_id: user_id}) do
     %{
       success: true,
