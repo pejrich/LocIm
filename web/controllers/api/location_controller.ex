@@ -4,6 +4,7 @@ defmodule LocIm.Api.LocationController do
   @default_radius 500
 
   def index(conn, %{"latitude" => latitude, "longitude" => longitude} = params) do
+    IO.puts "\n\n\n #{inspect params} \n\n\n"
     latitude = String.to_float("#{latitude}")
     longitude = String.to_float("#{longitude}")
     radius = String.to_integer("#{Map.get(params, "radius") || @default_radius}")

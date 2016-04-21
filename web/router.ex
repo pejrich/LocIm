@@ -31,7 +31,7 @@ defmodule LocIm.Router do
       get "/location", Api.LocationController, :index
       get "/feed", Api.FeedController, :index
       resources "/posts", Api.PostController, only: [:show, :create]  
-      resources "/users", Api.UserController, only: [:show] do
+      resources "/users", Api.UserController, only: [:show, :create] do
         post "/follow", Api.UserController, :follow
         post "/unfollow", Api.UserController, :unfollow
       end

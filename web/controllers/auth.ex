@@ -7,6 +7,8 @@ defmodule LocIm.Auth do
     Keyword.fetch!(opts, :repo)
   end
 
+  # https://graph.facebook.com/endpoint?key=value&amp;access_token=app_id|app_secret
+  # /me?fields=id,name,user_birthday,email,
   def call(conn, repo) do
     case conn.params do
       %{"auth_token" => auth_token} ->
@@ -14,7 +16,19 @@ defmodule LocIm.Auth do
           nil -> invalid_auth_token(conn)
           user -> put_current_user(conn, user)
         end
-      _ -> invalid_auth_token(conn, "Please provide an auth_token")
+      %{"fb_user_id" => fb_user_id, "fb_token" => fb_token} = params ->
+        IO.puts "\n\n\n 2 \n\n\n"
+        IO.puts "\n\n\n IN AUTH \n\n\n"
+        IO.puts "\n\n\n #{inspect fb_user_id} \n\n\n"
+        IO.puts "\n\n\n #{inspect fb_token} \n\n\n"
+        IO.puts "\n\n\n #{inspect params} \n\n\n"
+        IO.puts "\n\n\n ARE YOU PRUD OF ME \n\n\n"
+        # LocIm.Api.UserController.create(conn, params)
+        conn
+      other -> 
+        IO.puts "\n\n\n ELSER \n\n\n"
+        IO.puts "\n\n\n #{inspect other} \n\n\n"
+        invalid_auth_token(conn, "Please provide an auth_token") |> halt
     end
   end
 
@@ -27,9 +41,11 @@ defmodule LocIm.Auth do
   end
 
   defp invalid_auth_token(conn, message \\ "invalid auth_token") do
-    conn
+    conn = conn
     |> put_status(422)
     |> json(%{message: message})
+    |> halt
+    conn
   end
     # %{"auth_token" => auth_token} = conn.params
     # %{"auth_token" => "123", 

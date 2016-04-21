@@ -60,15 +60,13 @@ defmodule LocIm.Post do
     elem(post.location.coordinates, 1)
   end
 
-  def format_post_params(%{auth_token: auth_token, latitude: latitude, longitude: longitude,
+  def format_post_params(%{latitude: latitude, longitude: longitude,
         image: %Plug.Upload{content_type: cont_type, filename: filename, path: filepath}} = params) do
     location = %Geo.Point{coordinates: {longitude, latitude}}
     image_path = LocIm.PostUploadServer.upload(filepath, filename)
-    user_id = LocIm.User.auth_token_to_user_id(auth_token)
     params = params
     |> Map.delete(:longitude)
     |> Map.delete(:latitude)
-    |> Map.put(:user_id, user_id)
     |> Map.put(:image, image_path)
     |> Map.put(:location, location)
     |> Map.put(:original_filename, filename)

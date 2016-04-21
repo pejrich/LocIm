@@ -3,7 +3,7 @@ defmodule LocIm.Mixfile do
 
   def project do
     [app: :loc_im,
-     version: "0.0.2",
+     version: "0.0.1",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
@@ -42,7 +42,7 @@ defmodule LocIm.Mixfile do
      {:comeonin, "~> 2.0"},
      {:geo, "~> 1.0"},
      {:httpotion, "~> 2.2.0"},
-     {:httpoison, "~> 0.8.0"}]
+     {:httpoison, "~> 0.8.0"},
      {:geo, "~> 1.0"}]
   end
 
