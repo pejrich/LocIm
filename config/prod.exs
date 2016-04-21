@@ -20,12 +20,19 @@ config :loc_im, LocIm.Endpoint,
 # Do not print debug messages in production
 # config :logger, level: :info
 
-config :logger, format: "[$level] $message\n",
-	backends: [{LoggerFileBackend, :error_log}, :console]
 
-config :logger, :error_log,
-	path: "log/error.log",
-	level: :error
+config :logger, format: "[$level] $message\n",
+  backends: [{LoggerFileBackend, :info},
+             {LoggerFileBackend, :error}, :console]
+
+config :logger, :info,
+  path: "logg/info.log",
+  level: :info
+
+config :logger, :error,
+  path: "logg/error.log",
+  level: :error
+
 
 # ## SSL Support
 #

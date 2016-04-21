@@ -25,7 +25,6 @@ config :loc_im, LocIm.Endpoint,
   ]
 
 # Do not include metadata nor timestamps in development logs
-# config :logger, :console, format: "[$level] $message\n"
 
 config :logger, format: "[$level] $message\n",
   backends: [{LoggerFileBackend, :info},
@@ -38,6 +37,10 @@ config :logger, :info,
 config :logger, :error,
   path: "logg/error.log",
   level: :error
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 
 # Set a higher stacktrace during development.
 # Do not configure such in production as keeping
