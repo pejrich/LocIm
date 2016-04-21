@@ -1,0 +1,94 @@
+<h3>POST /posts/</h3>
+<div class="well">
+  <h5>Post a new post</h5>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Required?</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td><strong>auth_token</strong><br>
+        </td>
+        <td>true</td>
+        <td>string</td>
+        <td>
+          <p>
+            Authentication token for the current user.
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>post[status]</strong><br>
+        </td>
+        <td>true</td>
+        <td>string</td>
+        <td>
+          <p>
+            This is a brief description of the image being posted.
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>post[image]</strong><br>
+        </td>
+        <td>true</td>
+        <td>file</td>
+        <td>
+          <p>
+            Image to be uploaded. Must be either png, jpg, jped or gif
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>post[longitude]</strong><br>
+        </td>
+        <td>true</td>
+        <td>float</td>
+        <td>
+          <p>
+            Longitude of current users position
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>post[latitude]</strong><br>
+        </td>
+        <td>true</td>
+        <td>float</td>
+        <td>
+          <p>
+            Latitude of current users position
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>post[category]</strong><br>
+        </td>
+        <td>true</td>
+        <td>string</td>
+        <td>
+          <p>
+            String of category types to filter on.
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>post[reaction]</strong><br>
+        </td>
+        <td>true</td>
+        <td>boolean</td>
+        <td>
+          <p>
+            Boolean value to represent if the user would recommend visiting the current location
+          </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

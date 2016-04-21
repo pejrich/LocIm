@@ -5,340 +5,35 @@
 <h2>Users</h2>
   <ul>
     <li>
-      <h3>GET /users/:id</h3>
-      <div class="well">
-        <h5>Get user profile information for user with ID :id</h5>
-        
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Param name</th>
-              <th>Required?</th>
-              <th>Type</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td><strong>auth_token</strong><br>
-              </td>
-              <td>false</td>
-              <td>string</td>
-              <td>
-                <p>
-                  Authentication token for the current user. This will customize certain fields to the current user.
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <%= render "_get_users_id.html" %>
     </li>
     <li>
-      <h3>POST /users/:id/follow</h3>
-      <div class="well">
-        <h5>Follow user with ID :id</h5>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Param name</th>
-              <th>Required?</th>
-              <th>Type</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td><strong>auth_token</strong><br>
-              </td>
-              <td>true</td>
-              <td>string</td>
-              <td>
-                <p>
-                  Authentication token for the current user.
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <%= render "_post_users_id_follow.html" %>
     </li>
     <li>
-      <h3>POST /users/:id/unfollow</h3>
-      <div class="well">
-        <h5>Unfollow user with ID :id</h5>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Param name</th>
-              <th>Required?</th>
-              <th>Type</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td><strong>auth_token</strong><br>
-              </td>
-              <td>true</td>
-              <td>string</td>
-              <td>
-                <p>
-                  Authentication token for the current user.
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <%= render "_post_users_id_unfollow.html" %>
     </li>
   </ul>
 <h2>Location</h2>
   <ul>
     <li>
-      <h3>GET /location/</h3>
-      <div class="well">
-        <h5>Get post in the current users location</h5>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Param name</th>
-              <th>Required?</th>
-              <th>Type</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td><strong>auth_token</strong><br>
-              </td>
-              <td>true</td>
-              <td>string</td>
-              <td>
-                <p>
-                  Authentication token for the current user.
-                </p>
-              </td>
-            </tr>
-
-            <tr>
-              <td><strong>longitude</strong><br>
-              </td>
-              <td>true</td>
-              <td>float</td>
-              <td>
-                <p>
-                  Longitude of current users position
-                </p>
-              </td>
-            </tr>
-
-            <tr>
-              <td><strong>latitude</strong><br>
-              </td>
-              <td>true</td>
-              <td>float</td>
-              <td>
-                <p>
-                  Latitude of current users position
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>radius</strong><br>
-              </td>
-              <td>true</td>
-              <td>integer</td>
-              <td>
-                <p>
-                  Radius, in meters, of current map view
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>category</strong><br>
-              </td>
-              <td>false</td>
-              <td>string</td>
-              <td>
-                <p>
-                  String of category types to filter on.
-                </p>
-                <p>
-                  e.g. "food, sight"
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <%= render "_get_locations.html" %>
     </li>
   </ul>
 <h2>Feed</h2>
   <ul>
     <li>
-      <h3>GET /feed/</h3>
-      <div class="well">
-        <h5>Get feed of posts by followed users</h5>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Param name</th>
-              <th>Required?</th>
-              <th>Type</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td><strong>auth_token</strong><br>
-              </td>
-              <td>true</td>
-              <td>string</td>
-              <td>
-                <p>
-                  Authentication token for the current user.
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>page_number</strong><br>
-              </td>
-              <td>false</td>
-              <td>integer</td>
-              <td>
-                <p>
-                  page number for pagination. Default: 1
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <%= render "_get_feed.html" %>
     </li>
   </ul>
 <h2>Posts</h2>
   <ul>
     <li>
-      <h3>GET /posts/:id</h3>
-      <div class="well">
-        <h5>Get data about post with ID :id</h5>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Param name</th>
-              <th>Required?</th>
-              <th>Type</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td><strong>auth_token</strong><br>
-              </td>
-              <td>false</td>
-              <td>string</td>
-              <td>
-                <p>
-                  Authentication token for the current user.
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <%= render "_get_posts_id.html" %>
     </li>
 
     <li>
-      <h3>POST /posts/</h3>
-      <div class="well">
-        <h5>Post a new post</h5>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Param name</th>
-              <th>Required?</th>
-              <th>Type</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td><strong>auth_token</strong><br>
-              </td>
-              <td>true</td>
-              <td>string</td>
-              <td>
-                <p>
-                  Authentication token for the current user.
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>image</strong><br>
-              </td>
-              <td>true</td>
-              <td>file</td>
-              <td>
-                <p>
-                  Image to be uploaded. Must be either png, jpg, jped or gif
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>longitude</strong><br>
-              </td>
-              <td>true</td>
-              <td>float</td>
-              <td>
-                <p>
-                  Longitude of current users position
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>latitude</strong><br>
-              </td>
-              <td>true</td>
-              <td>float</td>
-              <td>
-                <p>
-                  Latitude of current users position
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>category</strong><br>
-              </td>
-              <td>true</td>
-              <td>string</td>
-              <td>
-                <p>
-                  String of category types to filter on.
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>reaction</strong><br>
-              </td>
-              <td>true</td>
-              <td>boolean</td>
-              <td>
-                <p>
-                  Boolean value to represent if the user would recommend visiting the current location
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <%= render "_post_posts.html" %>
     </li>
   </ul>
 
