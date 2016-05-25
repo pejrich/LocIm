@@ -68,7 +68,7 @@ defmodule LocIm.User do
   end
 
   def new_token do
-    :crypto.hash(:sha256, :erlang.now |> elem(2) |> Integer.to_string)
+    :crypto.hash(:sha256, :erlang.timestamp |> elem(2) |> Integer.to_string)
     |> Base.encode16
   end
 
